@@ -34,7 +34,6 @@
               :options="type"
               option-label="name"
               label="Tipo *"
-              @click="$set"
               />
             </div>
           <div class="row justify-left q-gutter-md row items-start"> </div>
@@ -46,7 +45,6 @@
               option-value="uuid"
               option-label="name"
               label="Situação *"
-              @click="$set, console.log('Clicou')"
               />
             </div>
           <div class="row justify-left q-gutter-md row items-start"> </div>
@@ -109,10 +107,6 @@
 export default {
   data () {
     return {
-      atividades: {
-        name: '',
-        description: ''
-      },
       modelName: null,
       modelDescription: null,
       modelType: null,
@@ -171,10 +165,6 @@ export default {
     },
 
     reset () {
-      this.atividades.name = ''
-      this.atividades.description = ''
-      this.atividades.type = ''
-      this.atividades.situation = ''
       this.modelType = null
       this.modelSituation = null
       this.modelName = null
