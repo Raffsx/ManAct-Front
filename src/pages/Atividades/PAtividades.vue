@@ -51,8 +51,8 @@
 
         </q-form>
         <div>
-          <q-btn @click="setaId()" @click.stop="refresh()" label="adicionar" color="primary" to="/atividades"/>
-          <q-btn @click="refresh()" label="limpar" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn @click="setaId()" @click.stop="refresh()" :disable="loading" label="adicionar" color="primary" to="/atividades"/>
+          <q-btn @click="reset()" label="limpar" type="reset" color="primary" flat class="q-ml-sm" />
         </div>
       </div>
     </div>
@@ -64,9 +64,10 @@
               :columns="columns"
               row-key="name"
               :loading="loading"
+              binary-state-sort
         >
-          <template v-slot:body="props" :loading="loading">
-            <q-tr :props="activities" :loading="loading">
+          <template v-slot:body="props">
+            <q-tr :props="props">
               <q-td key="atividade" :props="props">
                 {{ props.row.name }}
                 <q-popup-edit v-model="props.row.name">
@@ -88,7 +89,7 @@
                   />
                 </q-popup-edit>
               </q-td>
-              <q-btn flat  color="negative" icon="delete_forever" @click="recebeLinha(props.row)" @click.stop="removeRow()"/>
+              <q-btn flat  color="negative" icon="delete_forever" @click="recebeLinha(props.row)" @click.stop="removeRow()" :disable="loading"/>
             </q-tr>
           </template>
         </q-table>
@@ -102,7 +103,6 @@ export default {
   data () {
     return {
       loading: false,
-      filter: '',
       modelName: null,
       modelDescription: null,
       modelType: null,
@@ -137,12 +137,17 @@ export default {
 
   methods: {
     gravar () {
+      this.loading = true
       const cloned = JSON.parse(this.modelSaveJson)
       this.$axios.post('http://localhost:8083/activities', cloned)
       this.buscarActivities()
+      const index = Math.floor(Math.random() * this.data.length)
+      this.activities = [this.data.slice(0, index), this.data.slice(index + 1)]
+      this.loading = false
       console.log('--GRAVAR OK')
     },
     reset () {
+      this.loading = true
       this.modelType = null
       this.modelSituation = null
       this.modelName = null
@@ -154,6 +159,7 @@ export default {
       this.updateSituation = null
       this.updateType = null
       this.loading = false
+      this.buscarActivities()
       console.log('RESET OK')
     },
     buscarTypes () {
@@ -177,13 +183,14 @@ export default {
       console.log('BUSCAR SITUATIONS OK')
     },
     buscarActivities () {
-      this.loading = true
       this.$axios.get('http://localhost:8083/activities')
         .then((response) => {
           this.activities = response.data
         })
-      console.log('BUSCAR ATIVIDADES OK')
+      this.loading = true
+      this.activities = []
       this.loading = false
+      console.log('BUSCAR ATIVIDADES OK')
     },
     setaId () {
       var recebeSituation = JSON.parse(JSON.stringify(this.modelSituation, ['uuid']), [0])
@@ -221,7 +228,6 @@ export default {
       this.reset()
       this.buscarTypes()
       this.buscaSituations()
-      this.loading = false
       console.log('REFRESH OK')
     },
     removeRow () {
