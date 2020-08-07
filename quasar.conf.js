@@ -88,9 +88,6 @@ module.exports = function (/* ctx */) {
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
     supportIE: false,
 
-    // https://quasar.dev/quasar-cli/cli-documentation/supporting-ts
-    supportTS: false,
-
     // https://quasar.dev/quasar-cli/cli-documentation/prefetch-feature
     // preFetch: true
 
@@ -123,28 +120,6 @@ module.exports = function (/* ctx */) {
       https: false,
       port: 8081,
       open: true // opens browser window automatically
-    },
-
-    // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
-    framework: {
-      iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
-      config: {},
-
-      // Possible values for "importStrategy":
-      // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
-      // * 'all'  - Manually specify what to import
-      importStrategy: 'auto',
-
-      // For special cases outside of where "auto" importStrategy can have an impact
-      // (like functional components as one of the examples),
-      // you can manually specify Quasar components/directives to be available everywhere:
-      //
-      // components: [],
-      // directives: [],
-
-      // Quasar plugins
-      plugins: []
     },
 
     // animations: 'all', // --- includes all animations

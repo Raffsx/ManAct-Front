@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Cadastro de atividades do Rafael
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
