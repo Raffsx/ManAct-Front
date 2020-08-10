@@ -33,6 +33,7 @@
                :columns="colunas"
                row-key="uuid"
                selection="single"
+               :loading="loading"
                :selected.sync="selected"
               />
             </div>
@@ -52,6 +53,7 @@
 export default {
   data () {
     return {
+      loading: false,
       situations: [],
       colunas: [
         { name: 'name', align: 'middle', label: 'Nome', field: 'name', sortable: true }
@@ -80,10 +82,13 @@ export default {
       this.situacao.name = ''
     },
     buscarSituations () {
+      this.loading = true
       this.$axios.get('http://localhost:8083/situation')
         .then((response) => {
           this.situations = response.data
         })
+      this.situations = []
+      this.loading = false
     },
     removeRow () {
       console.log(JSON.stringify((this.selected)))
