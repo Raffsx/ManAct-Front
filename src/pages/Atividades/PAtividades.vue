@@ -1,6 +1,5 @@
 <template>
   <q-page padding>
-
     <div class="q-pa-md q-gutter-sm">
       <q-breadcrumbs>
         <q-breadcrumbs-el label="home" icon="home" to="/" />
@@ -42,7 +41,6 @@
             <q-select filled
               v-model="modelSituation"
               :options="situation"
-              option-value="uuid"
               option-label="name"
               label="Situação *"
               />
@@ -51,13 +49,12 @@
 
         </q-form>
         <div>
-          <q-btn @click="setaId()" @click.stop="refresh()" :disable="loading" label="adicionar" color="primary" to="/atividades"/>
-          <q-btn @click="reset()" label="limpar" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-btn @click="setaId()" :disable="loading" label="adicionar" color="primary" to="/atividades"/>
+          <q-btn @click="reset()" label="limpar" type="reset" color="primary" flat class="q-ml-sm" to="/atividades"/>
         </div>
       </div>
     </div>
-    <template>
-      <div class="q-pa-md">
+    <div class="q-pa-md">
         <q-table
               title="Atividades cadastradas"
               :data="activities"
@@ -89,12 +86,11 @@
                   />
                 </q-popup-edit>
               </q-td>
-              <q-btn flat  color="negative" icon="delete_forever" @click="recebeLinha(props.row)" @click.stop="removeRow()" :disable="loading"/>
+              <q-btn flat  color="negative" icon="delete_forever" @click="recebeLinha(props.row)" @click.stop="removeRow()" to="/atividades"/>
             </q-tr>
           </template>
         </q-table>
       </div>
-    </template>
   </q-page>
 </template>
 
@@ -120,10 +116,10 @@ export default {
         }
       ],
       columns: [
-        { name: 'atividade', align: 'center', label: 'Atividades', field: 'activiti', sortable: true },
-        { name: 'tipo', align: 'center', label: 'Tipos', field: 'type', sortable: true },
-        { name: 'situacao', align: 'center', label: 'Situação', field: 'situation', sortable: true },
-        { name: 'descricao', align: 'center', label: 'Descrição', field: 'description', sortable: true }
+        { name: 'atividade', align: 'center', label: 'Atividades', field: row => row.name, sortable: true },
+        { name: 'tipo', align: 'center', label: 'Tipos', field: row => row.name, sortable: true },
+        { name: 'situacao', align: 'center', label: 'Situação', field: row => row.name, sortable: true },
+        { name: 'descricao', align: 'center', label: 'Descrição', field: row => row.name, sortable: true }
       ],
       activities: []
     }
@@ -137,13 +133,13 @@ export default {
 
   methods: {
     gravar () {
-      this.loading = true
       const cloned = JSON.parse(this.modelSaveJson)
       this.$axios.post('http://localhost:8083/activities', cloned)
       this.buscarActivities()
-      const index = Math.floor(Math.random() * this.data.length)
-      this.activities = [this.data.slice(0, index), this.data.slice(index + 1)]
+      this.loading = true
       this.loading = false
+      this.refresh()
+      this.refresh()
       console.log('--GRAVAR OK')
     },
     reset () {
@@ -236,8 +232,13 @@ export default {
       this.$axios.delete('http://localhost:8083/activities/' + recebeUuid)
       console.log('--REMOVE ROW OK')
       this.buscarActivities()
+      this.refresh()
     }
   }
 
 }
 </script>
+
+<style>
+
+</style>
