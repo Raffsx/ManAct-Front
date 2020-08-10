@@ -1,5 +1,7 @@
+
 <template>
   <q-page padding>
+
     <div class="q-pa-md q-gutter-sm">
       <q-breadcrumbs>
         <q-breadcrumbs-el label="home" icon="home" to="/" />
@@ -91,7 +93,9 @@
           </template>
         </q-table>
       </div>
+
   </q-page>
+
 </template>
 
 <script>
