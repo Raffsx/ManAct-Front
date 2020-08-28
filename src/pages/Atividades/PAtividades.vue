@@ -4,15 +4,18 @@
 
     <div class="q-pa-md q-gutter-sm">
       <q-breadcrumbs>
-        <q-breadcrumbs-el label="home" icon="home" to="/" />
+        <q-breadcrumbs-el
+          label="home"
+          icon="home"
+          to="/"
+        />
         <q-breadcrumbs-el label="atividades" />
       </q-breadcrumbs>
     </div>
 
     <div class="row justify-center">
       <div class="col-6">
-        <q-form
-          class="q-gutter-md q-mt-lg">
+        <q-form class="q-gutter-md q-mt-lg">
 
           <q-input
             filled
@@ -29,70 +32,121 @@
           />
 
           <div class="col-4">
-            <q-select filled
+            <q-select
+              filled
               v-model="modelType"
               option-value="id"
               :options="type"
               option-label="name"
               label="Tipo *"
-              />
-            </div>
+            />
+          </div>
           <div class="row justify-left q-gutter-md row items-start"> </div>
 
           <div class="col-5">
-            <q-select filled
+            <q-select
+              filled
               v-model="modelSituation"
               :options="situation"
               option-label="name"
               label="Situação *"
-              />
-            </div>
+            />
+          </div>
           <div class="row justify-left q-gutter-md row items-start"> </div>
 
         </q-form>
         <div>
-          <q-btn @click="setaId()" :disable="loading" label="adicionar" color="primary" to="/atividades"/>
-          <q-btn @click="reset()" label="limpar" type="reset" color="primary" flat class="q-ml-sm" to="/atividades"/>
+          <q-btn
+            @click="setaId()"
+            :disable="loading"
+            label="adicionar"
+            color="primary"
+            to="/atividades"
+          />
+          <q-btn
+            @click="reset()"
+            label="limpar"
+            type="reset"
+            color="primary"
+            flat
+            class="q-ml-sm"
+            to="/atividades"
+          />
         </div>
       </div>
     </div>
     <div class="q-pa-md">
-        <q-table
-              title="Atividades cadastradas"
-              :data="activities"
-              :columns="columns"
-              row-key="name"
-              :loading="loading"
-              binary-state-sort
-        >
-          <template v-slot:body="props">
-            <q-tr :props="props">
-              <q-td key="atividade" :props="props">
-                {{ props.row.name }}
-                <q-popup-edit v-model="props.row.name">
-                  <q-input v-model="props.row.name" dense autofocus counter
-                  />
-                </q-popup-edit>
-              </q-td>
-              <q-td key="tipo" :props="props">
-                {{ props.row.type.name }}
-              </q-td>
-              <q-td key="situacao" :props="props">
-                {{ props.row.situation.name }}
-              </q-td>
-              <q-td key="descricao" :props="props">
-                <div v-html=" props.row.description  "></div>
-                <q-popup-edit v-model="props.row.description" title="Descrição" buttons label-set="Salvar" label-cancel= "Cancelar" @save="update"
-                >
-                  <q-editor type="textarea" v-model="props.row.description" min-height="10rem" autofocus @keyup.enter.stop @input="recebeLinha(props.row)"
-                  />
-                </q-popup-edit>
-              </q-td>
-              <q-btn flat  color="negative" icon="delete_forever" @click="recebeLinha(props.row)" @click.stop="removeRow()" to="/atividades"/>
-            </q-tr>
-          </template>
-        </q-table>
-      </div>
+      <q-table
+        title="Atividades cadastradas"
+        :data="activities"
+        :columns="columns"
+        row-key="name"
+        :loading="loading"
+        binary-state-sort
+      >
+        <template v-slot:body="props">
+          <q-tr :props="props">
+            <q-td
+              key="atividade"
+              :props="props"
+            >
+              {{ props.row.name }}
+              <q-popup-edit v-model="props.row.name">
+                <q-input
+                  v-model="props.row.name"
+                  dense
+                  autofocus
+                  counter
+                />
+              </q-popup-edit>
+            </q-td>
+            <q-td
+              key="tipo"
+              :props="props"
+            >
+              {{ props.row.type.name }}
+            </q-td>
+            <q-td
+              key="situacao"
+              :props="props"
+            >
+              {{ props.row.situation.name }}
+            </q-td>
+            <q-td
+              key="descricao"
+              :props="props"
+            >
+              <div v-html=" props.row.description  "></div>
+              <q-popup-edit
+                v-model="props.row.description"
+                title="Descrição"
+                buttons
+                label-set="Salvar"
+                label-cancel="Cancelar"
+                @save="update"
+              >
+                <q-editor
+                  type="textarea"
+                  v-model="props.row.description"
+                  min-height="10rem"
+                  autofocus
+                  @keyup.enter.stop
+                  @input="recebeLinha(props.row)"
+                />
+              </q-popup-edit>
+            </q-td>
+            <q-btn
+              flat
+              color="negative"
+              icon="delete_forever"
+              @click="recebeLinha(props.row)"
+              @click.stop="removeRow()"
+              to="/atividades"
+            />
+          </q-tr>
+        </template>
+      </q-table>
+    </div>
 
   </q-page>
 
@@ -244,5 +298,4 @@ export default {
 </script>
 
 <style>
-
 </style>

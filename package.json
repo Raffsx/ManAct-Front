@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A Quasar Framework app",
   "productName": "Quasar App",
-  "author": "Rafael de Agostinho <52942590+Raffsx@users.noreply.github.com>",
+  "author": "Rafael de Agostinho <https://github.com/Raffsx>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
@@ -13,7 +13,7 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "quasar": "^1.13.1"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
@@ -47,5 +47,6 @@
     "yarn": ">= 1.21.1"
   },
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/Raffsx/ManAct-Front.git"
 }

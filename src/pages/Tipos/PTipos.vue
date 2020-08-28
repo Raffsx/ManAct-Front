@@ -3,16 +3,18 @@
 
     <div class="q-pa-md q-gutter-sm">
       <q-breadcrumbs>
-        <q-breadcrumbs-el label="home" icon="home" to="/" />
+        <q-breadcrumbs-el
+          label="home"
+          icon="home"
+          to="/"
+        />
         <q-breadcrumbs-el label="tipos" />
       </q-breadcrumbs>
     </div>
 
     <div class="row justify-center">
       <div class="col-6">
-        <q-form
-          class="q-gutter-md q-mt-lg"
-        >
+        <q-form class="q-gutter-md q-mt-lg">
           <q-input
             filled
             v-model="tipos.name"
@@ -20,26 +22,43 @@
             hint="Digite o nome do tipo"
           />
           <div>
-            <q-btn @click="gravar()" label="adicionar" color="primary" to="/tipos"/>
-            <q-btn @click="reset()" label="limpar" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-btn
+              @click="gravar()"
+              label="adicionar"
+              color="primary"
+              to="/tipos"
+            />
+            <q-btn
+              @click="reset()"
+              label="limpar"
+              type="reset"
+              color="primary"
+              flat
+              class="q-ml-sm"
+            />
           </div>
-          </q-form>
-         <q-page padding>
+        </q-form>
+        <q-page padding>
           <template>
             <div class="q-pa-md">
               <q-table
-               title="Tipos Cadastradas:"
-               :data="types"
-               :columns="colunas"
-               row-key="uuid"
-               selection="single"
-               :loading="loading"
-               :selected.sync="selected"
+                title="Tipos Cadastradas:"
+                :data="types"
+                :columns="colunas"
+                row-key="uuid"
+                selection="single"
+                :loading="loading"
+                :selected.sync="selected"
               />
             </div>
           </template>
           <template>
-            <q-btn class="q-ml-sm" color="primary" label="Remove row" @click="removeRow()"/>
+            <q-btn
+              class="q-ml-sm"
+              color="primary"
+              label="Remove row"
+              @click="removeRow()"
+            />
           </template>
         </q-page>
       </div>
